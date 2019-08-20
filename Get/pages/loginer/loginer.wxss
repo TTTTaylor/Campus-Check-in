@@ -17,12 +17,13 @@ button{
   top: 100px;
   left: 0;
   color: white;
-  background-color:  #13227a;
+  background-color:  #23ace2;
   right: 0;
   text-align: center;       
   width: 40%;
   height: 50px;      
-  border-radius: 20px;    
+  border-radius: 20px;  
+  margin-top: 250rpx;  
 }
 .back_img{
   height: 100%;

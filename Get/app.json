@@ -1,9 +1,11 @@
 {
   "pages": [
+    "pages/_user/_user",
+    "pages/new/new",
     "pages/loginer/loginer",
     "pages/user/user",
     "pages/manage/manage",
-    "pages/new/new",
+    "pages/_form/_form",
     "pages/search/search"
   
   ],

@@ -17,13 +17,13 @@ Page({
       url: '../logs/logs'
     })
   },
-  onLoad: function () {
+  onLoad: function() {
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
-    } else if (this.data.canIUse){
+    } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
@@ -53,17 +53,17 @@ Page({
       hasUserInfo: true
     })
   },
-  changeAvator: function () {
+  changeAvator: function() {
     var me = this;
     wx.chooseImage({
-      success: function (res) {
+      success: function(res) {
         var filePath = res.tempFilePaths[0];
         console.log(filePath);
         // var fileName = filePath.match(/http.{7}(.*)/);
         //fileName = fileName[1];
         var fileName = Date.parse(new Date()) + '.jpg';
         console.log(fileName);
-        uploadFn(filePath, fileName, me, function (avator_url) {
+        uploadFn(filePath, fileName, me, function(avator_url) {
           wx.request({
             url: config.url + '/person/update',
             data: {
@@ -71,13 +71,33 @@ Page({
               'avator_url': avator_url
             },
             method: 'POST',
-            success: function (res) {
+            success: function(res) {
               console.log(res.data);
               app.globalData.avator_url = avator_url;
             }
           })
         });
       },
+    })
+  },
+  write: function() {
+    wx.navigateTo({
+      url: '../_form/_form',
+      events: {
+        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+        acceptDataFromOpenedPage: function(data) {
+          console.log(data)
+        },
+        someEvent: function(data) {
+          console.log(data)
+        }
+      },
+      success: function(res) {
+        // 通过eventChannel向被打开页面传送数据
+        res.eventChannel.emit('acceptDataFromOpenerPage', {
+          data: '_form'
+        })
+      }
     })
   }
 })
